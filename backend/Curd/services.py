@@ -3,7 +3,8 @@ from datetime import datetime, timedelta
 import json
 import os
 from fastapi import HTTPException, security
-from RecipenMealPlanner import Favorite, Ingredient, Instruction, Recipe, ShoppingListItem, Tag, Users, MealPlan
+from RecipenMealPlanner import Users
+# Favorite, Ingredient, Instruction, Recipe, ShoppingListItem, Tag, Users, MealPlan
 import jwt
 
 security = security.HTTPBearer()

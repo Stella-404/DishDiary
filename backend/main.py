@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from Routers import endpoints
 app = FastAPI()
+
+app.include_router(endpoints.router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -9,7 +11,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.get("/")
-def root():
-    return {"message": "DishDiary API is running"}
