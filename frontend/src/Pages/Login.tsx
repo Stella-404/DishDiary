@@ -1,4 +1,4 @@
-import { Alert, Box, Button, FormControl, FormLabel, Input, Sheet, Typography } from "@mui/joy";
+import { Alert, Box, Button, FormControl, FormLabel, Input, Link, Sheet, Typography } from "@mui/joy";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { type UserLoginModel } from "../Components/InterfaceModels";
@@ -51,29 +51,41 @@ function Login() {
     }
 
     return(
-        // UI
+        // the Main Card
         <Sheet
         sx={{
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: {xs: 'column', sm: 'row'},
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: {xs: 'center', sm: 'stretch'},
             mx: 'auto',
-            mt: 15,
-            width: 660,
-            height: 500,
-            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.4)',
+            mt: {xs: 5, sm: 8},
+            width: {xs: '70%', sm: '87%', md: 660},
+            minHeight: {md: 500},
+            boxShadow: {md: '0px 4px 20px rgba(0, 0, 0, 0.4)'},
+            border: {xs: 'solid 1px #e2dfdf', md: 'none'},
+            borderRadius: {xs: 12, sm: 0},
         }}>
             {/* LEFT SIDE */}
                 <Box
                 sx={{
                     // bgcolor: 'red',
-                    width: 300,
-                    height: 500,
+                    width: {xs: '100%', sm: '50%', md: 300},
+                    minHeight: {xs: 'auto', sm: 500, md: 500},
+                    boxSizing: {xs: 'border-box', md: 'content-box'}, 
                     px: 2,
                 }}>
+                    <Box>
+                        <Typography level='h1' fontFamily={"'Vollkorn SC', serif"}
+                        sx={{
+                            textAlign: 'center',
+                            fontSize: 43,
+                            mt: 2, 
+                            color: '#2e332a',
+                        }}>DishDiary</Typography>
+                    </Box>
                     <form onSubmit={handleSubmit}>
-                        <Typography level='h3' sx={{justifySelf: 'center',mt: 4, mb: 9,}}> Login</Typography>
+                        <Typography sx={{textAlign: 'center', mt: -1, mb: {xs: 4, md: 8},}}> Login to your account</Typography>
 
                         <FormControl required
                         sx={{mb: 2,}} >
@@ -97,33 +109,48 @@ function Login() {
 
                         {errorMessage && 
                         <Alert color='danger'
-                        sx={{mb:2, height: 10}}>
+                        sx={{mb:2}}>
                             {errorMessage}
                         </Alert>}
                         
                         <Button type='submit'
-                        sx={{width: 300, bgcolor: '#3d6b2c', '&:hover': {bgcolor: '#3d6b2ce6',} }}>
+                        sx={{width: '100%',mb: {xs: 0.5, sm: 2}, bgcolor: '#3d6b2c', '&:hover': {bgcolor: '#3d6b2ce6',} }}>
                             Login
                         </Button>
                     </form>
+                    <Link component='button' type='button' onClick={()=> navigate('/Registration')}
+                        sx={{ 
+                        display: {xs: 'block', sm: 'none'},
+                        width: '100%',
+                        justofyContent: 'center',
+                        color: '#2e332a',
+                        letterSpacing: 1,
+                        fontSize: 13,
+                        cursor: 'pointer',
+                        mb: 2,
+                        '&:hover': {textDecoration: 'underline'}
+                    }}
+                        > Don't have an account?</Link>
                 </Box>
             {/* RIGHT SIDE */}
                 <Box
+                // THE IMAGE BOX
                 sx={{
-                    // bgcolor: '#5a9140',
-                    width: 300,
-                    height: 500,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems:'center',
-                    px: 2,
                     backgroundImage: `url(${background})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'right center',
                     backgroundRepeat: 'no-repeat',
+                    width: {sm: '50%',md: 300},
+                    display: {xs: 'none', sm: 'flex'},
+                    boxSizing: {sm: 'border-box', md: 'content-box'},
+                    flexDirection: 'column',
+                    alignItems:'center',
+                    justifyContent: 'center',
+                    px: 2,
+                    
                 }}>
-                    <Typography level='h1' sx={{letterSpacing: 1, mt: 19, mb: 2, color: 'white', textShadow: '0px 4px 20px rgba(0, 0, 0, 0.49)'}}> Welcome Back</Typography>
-                    <Typography sx={{letterSpacing: 2, color: 'white', textShadow: '0px 4px 20px rgba(0, 0, 0, 0.49)'}} > Don't have an account yet?</Typography>
+                    <Typography level='h2' sx={{fontSize: 30, letterSpacing: 2, mb: 5, color: 'white', textShadow: '0px 4px 20px rgba(0, 0, 0, 0.99)'}}> Welcome Back</Typography>
+                    <Typography sx={{letterSpacing: 2, color: 'white', textShadow: '0px 4px 20px rgba(0, 0, 0, 0.9)'}} > Don't have an account yet?</Typography>
                     <Button onClick={()=> navigate('/Registration')} sx={{mt: 2, width: 150, bgcolor: '#ccc9c92f', border: 'solid 1px #ffffff95',
                         '&:hover': {bgcolor: '#ccc9c95c'}, boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.4)',
                     }}> Register</Button>
