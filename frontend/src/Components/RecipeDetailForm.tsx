@@ -54,41 +54,54 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
         sx={{ 
             display: 'flex',
             flexDirection: 'row',
-            
+            minHeight: '100vh',
         }}>
 
-            {/* SIDE BAR */}
-            <Box sx={{ width: 320, px: 2,
-            // height: '100vh',
-                bgcolor: '#5a9140',
+            {/* SIDE BAR IMAGE */}
+            <Box sx={{ 
+                width: {sm: '50%', md: 300}, 
+                px: 2,
                 backgroundImage: `url(${picture})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
-                display: 'flex',
+                boxSizing: {sx: 'border-box', md: 'content-box'},
+                display: {xs: 'none', sm: 'flex'},
                 flexDirection: 'column',
                 alignItems:'center',
+                justifyContent: 'center',
             }}>
-                <Typography level="h2" fontFamily={"'Vollkorn SC', serif"} sx={{fontSize:35,mt: 13, mb: 3, mr: 2, color: '#faf6ee',
+                <Typography level="h1" fontFamily={"'Vollkorn SC', serif"} 
+                sx={{fontSize: 45,
+                    color: '#faf6ee',
                     textShadow: '0px 4px 20px rgba(0, 0, 0, 0.8)'
                 }}>DishDiary</Typography>
-                <Typography level="h4" sx={{fontSize: 25, ml: 3, color: '#faf6ee', textShadow: '0px 4px 20px rgba(0, 0, 0, 0.49)'
+                <Typography sx={{fontSize: 18, 
+                color: '#faf6ee', 
+                textShadow: '0px 4px 20px rgba(0, 0, 0, 0.9)'
                     }} >What are we cooking today?
                 </Typography>
 
-                <Box sx={{mt: 48, }}>
-                    <Typography sx={{ color: '#faf6ee', ml: 4, textShadow: '0px 4px 20px rgba(0, 0, 0, 0.49)'}}> Not cooking? </Typography>
+                <Box sx={{mt: 45, }}>
+                    <Typography sx={{ color: '#faf6ee', ml: 4, textShadow: '0px 4px 20px rgba(0, 0, 0, 0.49)'}}> 
+                        Not cooking? </Typography>
                     <Button 
                     onClick={()=> navigate('/Homepage')} 
                     sx={{mt: 1, width: 150, bgcolor: '#ccc9c92f', border: 'solid 1px #ffffff95',
                         '&:hover': {bgcolor: '#ccc9c95c'}, 
-                    }}>Go Back </Button>
+                    }}>
+                        Go Back </Button>
                 </Box>
             </Box>
-
-            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', mx: 'auto',
-                gap: 3, height: '99vh',}}>
-                <Typography level="h3" sx={{justifySelf: 'center', my: 1,}}>Create Your Dish</Typography>
+            {/* FORM BOX */}
+            <Box sx={{
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                mx: 'auto',
+                gap: 2,
+                }}>
+                <Typography level="h3" sx={{fontSize: 28,justifySelf: 'center', mt: 1,}}>Create Your Dish</Typography>
                 <form onSubmit={handleSubmit}>
                     <FormControl required
                     sx={{mb: 2,}} >
@@ -103,7 +116,7 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                     <FormControl
                     sx={{mb: 2,}}  >
                         <FormLabel>How would you describe it?</FormLabel>
-                        <Textarea minRows={3}
+                        <Textarea minRows={2} maxRows={2}
                             placeholder="Description"
                             name="description"
                             value={recipeData.description}
@@ -223,7 +236,7 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                     <Button 
                     type="submit"
                     sx={{ alignSelf: 'center',
-                        width: 610, my: 6, borderRadius: 100, bgcolor: '#f2a541',
+                        width: 610, mb: 1, mt: 3, borderRadius: 100, bgcolor: '#f2a541',
                         '&:hover': {bgcolor: 'rgba(242, 165, 65, 0.95)'}
                     }}
                     > Start Cooking</Button>

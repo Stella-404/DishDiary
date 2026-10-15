@@ -67,50 +67,56 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
         sx={{ 
             display: 'flex',
             flexDirection: 'row',
-            alignItems: 'center',
-            gap: 3,
-            height: '100vh',
-            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.4)',
+            minHeight: '100vh',
         }}>
-            {/* ------------ SIDE BAR  -----------*/}
-            <Box sx={{ width: 230, px: 2,
-            height: '100vh',
-                // bgcolor: '#5a9140',
+            {/* SIDE BAR  IMAGE */}
+            <Box sx={{ 
+                width: {sm: '50%', md: 300}, 
+                px: 2,
                 backgroundImage: `url(${picture})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
-                display: 'flex',
+                boxSizing: {sx: 'border-box', md: 'content-box'},
+                display: {xs: 'none', sm: 'flex'},
                 flexDirection: 'column',
                 alignItems:'center',
+                justifyContent: 'center',
             }}>
-                <Typography level="h2" fontFamily={"'Vollkorn SC', serif"} sx={{fontSize:35,mt: 13, mb: 3, mr: 2, color: '#faf6ee',
-                    textShadow: '0px 4px 20px rgba(0, 0, 0, 0.95)'
-                }}>DishDiary</Typography>
-                <Typography level="h4" sx={{fontSize: 25, ml: 3, color: '#faf6ee', textShadow: '0px 4px 20px rgba(0, 0, 0, 0.49)'
-                    }} >What are we cooking today?
+                <Typography level="h1" fontFamily={"'Vollkorn SC', serif"} 
+                    sx={{fontSize: 45,
+                        color: '#faf6ee',
+                        textShadow: '0px 4px 20px rgba(0, 0, 0, 0.8)'
+                    }}>DishDiary</Typography>
+                <Typography sx={{fontSize: 18, 
+                    color: '#faf6ee', 
+                    textShadow: '0px 4px 20px rgba(0, 0, 0, 0.9)'
+                        }} >What are we cooking today?
                 </Typography>
 
-                <Box sx={{mt: 48, }}>
-                    <Typography sx={{ color: '#faf6ee', ml: 4, textShadow: '0px 4px 20px rgba(0, 0, 0, 0.49)'}}> Not cooking? </Typography>
+                <Box sx={{mt: 45, }}>
+                    <Typography sx={{ color: '#faf6ee', ml: 4, textShadow: '0px 4px 20px rgba(0, 0, 0, 0.49)'}}> 
+                        Not cooking? </Typography>
                     <Button 
                     onClick={onBack}
                     sx={{mt: 1, width: 150, bgcolor: '#ccc9c92f', border: 'solid 1px #ffffff95',
                         '&:hover': {bgcolor: '#ccc9c95c'}, 
-                    }}>Go Back </Button>
+                    }}>
+                        Go Back </Button>
                 </Box>
             </Box>
             
             {/* --------- MAIN AREA -------- */}
-            <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', 
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, 
                 alignItems: 'center', 
-                gap: 3, height: '99vh',}}>
+                gap: 3, px: 2, minWidth: '100vh',
+                boxSizing: 'border-box',}}>
                 
-                <Box sx={{display: 'flex', flexDirection: 'row', gap: 2, height: '100vh',
+                <Box sx={{display: 'flex', flexDirection: 'row', gap: 2, width: '100%', maxWidth: 1200,
                 }}>
                     {/* =========== INGREDIENTS LIST =========== */}
-                    <Box sx={{width: 575}}>
-                        <Typography level="h3" sx={{justifySelf: 'center', mb: 2, mt: 1,}}>Select ingredients for your dish</Typography>
+                    <Box sx={{flex: 1, minWidth: 0,}}>
+                        <Typography level="h3" sx={{fontSize: 28,justifySelf: 'center', my: 1,}}>Select ingredients for your dish</Typography>
 
                         {/* === Ingredient FIelds ==== */}
                         <Box sx={{mx: 1}}>
@@ -127,9 +133,9 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                                     />
                                 </FormControl>
                                 <Box
-                                sx={{ display: 'flex', flexDirection: 'row', gap: 1,}}>
+                                sx={{ display: 'flex', flexDirection: 'row', gap: 1, width: '100%'}}>
                                     <FormControl required
-                                    sx={{mb: 1, minWidth: 275}} >
+                                    sx={{mb: 1, flex: 1}} >
                                         <FormLabel>Quantity</FormLabel>
                                         <Input type='number' placeholder='Required quantity' 
                                         name='quantity'
@@ -138,7 +144,7 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                                         />
                                     </FormControl>
                                     <FormControl required
-                                    sx={{mb: 1,}} >
+                                    sx={{mb: 1, flex: 1}} >
                                         <FormLabel>Unit</FormLabel>
                                         <Select
                                             placeholder="Select appropriate unit"
@@ -146,7 +152,7 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                                             value={currentIngredient.unit}
                                             onChange={(_event, newValue) => setCurrentIngredient({...currentIngredient, unit: newValue || ''})}
                                             required
-                                            sx={{ minWidth: 275 }}
+                                            sx={{width: '100%'}}
                                             >
                                             <Option value="Cup(s)">Cup(s)</Option>
                                             <Option value="Tbsp">Tbsp</Option>
@@ -167,7 +173,7 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                                     </FormControl>
                                 </Box>
                                 <Button type="submit"
-                                sx={{m: 1, width: 558, bgcolor: '#e2603a', 
+                                sx={{mt: 1, width: '100%', bgcolor: '#e2603a', 
                                 '&:hover': {bgcolor: 'rgba(226, 97, 58, 0.9)'}}}> 
                                 <AddIcon sx={{fontSize: 16}} />Add Ingredients
                                 </Button>
@@ -177,8 +183,8 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                         <Divider sx={{my: 2}}/>
 
                         {/* Displaying ingredients */}
-                        <Box sx={{maxHeight: 350, overflow: 'auto' }}>
-                            <Typography level="title-md" fontSize={'sm'}>Ingredints Review:</Typography>
+                        <Box sx={{maxHeight: 345, overflow: 'auto', }}>
+                            <Typography level="title-md" fontSize={'sm'} sx={{mx: 1}}>Ingredints Review:</Typography>
 
                             {data.ingredients.length === 0 ? (
                                 <Typography level="body-sm">
@@ -202,9 +208,10 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                     </Box>
 
                     <Divider orientation="vertical"/>
+                    
                     {/* ============ INSTRUCTION LIST ============= */}
-                    <Box sx={{width: 575}}>
-                        <Typography level="h3" sx={{justifySelf: 'center', mb: 2, mt: 1}}>Add the Steps to cook it right</Typography>
+                    <Box sx={{flex: 1, minWidth: 0,}}>
+                        <Typography level="h3" sx={{fontSize: 28,justifySelf: 'center', my: 1,}}>Add the Steps to cook it right</Typography>
                         
                         <Box sx={{mx: 1}}>
                             <Typography sx={{fontWeight: 'bold', fontSize: 14}}>Add Instructions</Typography>
@@ -220,7 +227,7 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                                     />
                                 </FormControl>
 
-                                <Button type="submit" sx={{m: 1, width: 558, bgcolor: '#e2603a', '&:hover': {bgcolor: 'rgba(226, 97, 58, 0.9)'}}}> 
+                                <Button type="submit" sx={{mt: 1, width: '100%', bgcolor: '#e2603a', '&:hover': {bgcolor: 'rgba(226, 97, 58, 0.9)'}}}> 
                                     <AddIcon sx={{fontSize: 16}} />Add Instruction
                                 </Button>
                             </form>
@@ -229,8 +236,8 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                         <Divider sx={{my: 2}} />
 
                         {/* Displaying instructions */}
-                        <Box sx={{maxHeight: 350, overflow: 'auto' }}>
-                            <Typography level="h4" fontSize={'sm'}>Instructions:</Typography>
+                        <Box sx={{maxHeight: 345, overflow: 'auto' }}>
+                            <Typography level="h4" fontSize={'sm'} sx={{mx: 1}}>Instructions:</Typography>
                             {data.instructions.length === 0 ?(
                                 <Typography level="body-sm">
                                     No Instructions added yet!
@@ -255,11 +262,11 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                     </Box>
                 </Box>
                 {/* SAVE BUTTON */}
-                <Box>
+                <Box sx={{mt: 'auto', width: '100%', maxWidth: 1200}}>
                     <Button
                     onClick={onSubmit}
-                    sx={{ alignSelf: 'center',
-                        width: 1220, mb: 2, borderRadius: 100, bgcolor: '#f2a541',
+                    sx={{
+                        width: '100%', mb: 2, borderRadius: 100, bgcolor: '#f2a541',
                         '&:hover': {bgcolor: "#f2a541f2"}
                     }}>Save Changes</Button>
                 </Box>
