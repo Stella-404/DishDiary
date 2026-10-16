@@ -53,21 +53,24 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
         <Sheet
         sx={{ 
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: {xs: 'column', sm: 'row'},
             minHeight: '100vh',
+            width: '100%'
+            
         }}>
 
             {/* SIDE BAR IMAGE */}
             <Box sx={{ 
-                width: {sm: '50%', md: 300}, 
+                width: {sm: 240, md: 300}, 
                 px: 2,
                 backgroundImage: `url(${picture})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
-                boxSizing: {sx: 'border-box', md: 'content-box'},
+                boxSizing: {xs: 'border-box', md: 'content-box'},
                 display: {xs: 'none', sm: 'flex'},
                 flexDirection: 'column',
+                flexShrink: 0,
                 alignItems:'center',
                 justifyContent: 'center',
             }}>
@@ -76,7 +79,7 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                     color: '#faf6ee',
                     textShadow: '0px 4px 20px rgba(0, 0, 0, 0.8)'
                 }}>DishDiary</Typography>
-                <Typography sx={{fontSize: 18, 
+                <Typography sx={{fontSize: {sm: 14, md: 18}, 
                 color: '#faf6ee', 
                 textShadow: '0px 4px 20px rgba(0, 0, 0, 0.9)'
                     }} >What are we cooking today?
@@ -93,16 +96,50 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                         Go Back </Button>
                 </Box>
             </Box>
+            <Box sx={{ 
+                height: 150, 
+                px: 2,
+                backgroundImage: `url(${picture})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                boxSizing: {xs: 'border-box', md: 'content-box'},
+                display: {xs: 'flex', sm: 'none'},
+                flexDirection: 'column',
+                flexShrink: 0,
+                justifyContent: 'center',
+            }}>
+                <Button
+                    onClick={() => navigate('/Homepage')}
+                     sx={{fontSize: 12,height: 15, width: 15, borderRadius: 50, bgcolor: '#ccc9c92f',
+                        '&:hover': {bgcolor: '#ccc9c95c'}, 
+                    }}>
+                    ←
+                </Button>
+                <Typography level="h1" fontFamily={"'Vollkorn SC', serif"} 
+                sx={{fontSize: 45,
+                    color: '#faf6ee',
+                    textShadow: '0px 4px 20px rgba(0, 0, 0, 0.8)'
+                }}>DishDiary</Typography>
+                <Typography sx={{fontSize: 14, mt: -1,
+                color: '#faf6ee', 
+                textShadow: '0px 4px 20px rgba(0, 0, 0, 0.9)'
+                    }} >What are we cooking today?
+                </Typography>
+            </Box>
             {/* FORM BOX */}
             <Box sx={{
                 display: 'flex', 
                 flexDirection: 'column', 
+                flex: 1,
+                minWidth: 0,
                 alignItems: 'center', 
-                mx: 'auto',
                 gap: 2,
+                px: {xs: 2, md: 4},
+                py: 2,
                 }}>
-                <Typography level="h3" sx={{fontSize: 28,justifySelf: 'center', mt: 1,}}>Create Your Dish</Typography>
-                <form onSubmit={handleSubmit}>
+                <Typography level="h3" sx={{fontSize: 28, textAlign: 'center', mt: 1,}}>Create Your Dish</Typography>
+                <form onSubmit={handleSubmit} style={{width: '100%', maxWidth: 640}}>
                     <FormControl required
                     sx={{mb: 2,}} >
                         <FormLabel>What is the dish called?</FormLabel>
@@ -125,7 +162,9 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                     </FormControl>
 
                     <Box sx={{
-                        display: 'flex', gap: 3
+                        display: 'flex',
+                        flexDirection: {xs: 'column', md: 'row'},
+                        gap: {xs: 0, md: 3},
                     }}>
                         <FormControl required
                         sx={{mb: 2,}} >
@@ -136,7 +175,6 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                                 value={recipeData.cuisine}
                                 onChange={(e) => onUpdate({ cuisine: e.target.value })}
                                 required
-                                sx={{ minWidth: 290 }}
                                 />
                         </FormControl>
 
@@ -149,7 +187,7 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                                 value={recipeData.category}
                                 onChange={(_event, newValue) => onUpdate({category: newValue})}
                                 required
-                                sx={{ minWidth: 290 }}
+                                sx={{ width: '100%' }}
                                 >
                                 <Option value="Breakfast">Breakfast</Option>
                                 <Option value="Lunch">Lunch</Option>
@@ -161,7 +199,9 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                         </FormControl>
                     </Box>
                     <Box sx={{
-                        display: 'flex', gap: 3
+                        display: 'flex',
+                        flexDirection: {xs: 'column', md: 'row'},
+                        gap: {xs: 0, md: 3},
                     }}>
                         <FormControl required
                         sx={{mb: 2,}} >
@@ -170,7 +210,6 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                             name='prepTime'
                             value={recipeData.prepTime}
                             onChange={(e) => onUpdate({ prepTime: e.target.value })}
-                            sx={{minWidth: 290}}
                             />
                         </FormControl>
 
@@ -181,13 +220,15 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                             name='cookTime'
                             value={recipeData.cookTime}
                             onChange={(e) => onUpdate({ cookTime: e.target.value })}
-                            sx={{minWidth: 290}}
+                            sx={{width: '100%'}}
                             />
                         </FormControl>
                     </Box>
 
                     <Box sx={{
-                        display: 'flex', gap: 3
+                        display: 'flex',
+                        flexDirection: {xs: 'column', md: 'row'},
+                        gap: {xs: 0, md: 3},
                     }}>
                         <FormControl required
                         sx={{mb: 2,}} >
@@ -196,7 +237,6 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                             name='servings'
                             value={recipeData.servings}
                             onChange={(e) => onUpdate({ servings: e.target.value })}
-                            sx={{minWidth: 290,}}
                             />
                         </FormControl>
 
@@ -209,7 +249,7 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
                                 value={recipeData.difficulty}
                                 onChange={(_event, newValue) => onUpdate({difficulty: newValue})}
                                 required
-                                sx={{ minWidth: 290 }}
+                                sx={{ width: '100%'}}
                                 >
                                 <Option value="Easy">Easy</Option>
                                 <Option value="Medium">Medium</Option>
@@ -235,8 +275,7 @@ function RecipeDetailForm({recipeData, onUpdate, onNext} : Props){
 
                     <Button 
                     type="submit"
-                    sx={{ alignSelf: 'center',
-                        width: 610, mb: 1, mt: 3, borderRadius: 100, bgcolor: '#f2a541',
+                    sx={{ width: '100%', mb: 1, mt: 3, borderRadius: 100, bgcolor: '#f2a541',
                         '&:hover': {bgcolor: 'rgba(242, 165, 65, 0.95)'}
                     }}
                     > Start Cooking</Button>
