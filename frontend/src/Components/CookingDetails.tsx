@@ -66,20 +66,24 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
         <Sheet
         sx={{ 
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: {xs: 'column', sm: 'row'},
             minHeight: '100vh',
+            width: '100%'
+            
         }}>
-            {/* SIDE BAR  IMAGE */}
+
+            {/* SIDE BAR IMAGE */}
             <Box sx={{ 
-                width: {sm: '50%', md: 300}, 
+                width: {sm: 240, md: 300}, 
                 px: 2,
                 backgroundImage: `url(${picture})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
-                boxSizing: {sx: 'border-box', md: 'content-box'},
+                boxSizing: {xs: 'border-box', md: 'content-box'},
                 display: {xs: 'none', sm: 'flex'},
                 flexDirection: 'column',
+                flexShrink: 0,
                 alignItems:'center',
                 justifyContent: 'center',
             }}>
@@ -105,18 +109,49 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                         Go Back </Button>
                 </Box>
             </Box>
+            <Box sx={{ 
+                height: 150, 
+                px: 2,
+                backgroundImage: `url(${picture})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                boxSizing: {xs: 'border-box', md: 'content-box'},
+                display: {xs: 'flex', sm: 'none'},
+                flexDirection: 'column',
+                flexShrink: 0,
+                justifyContent: 'center',
+            }}>
+                <Button
+                    onClick={onBack}
+                        sx={{fontSize: 12,height: 15, width: 15, borderRadius: 50, bgcolor: '#ccc9c92f',
+                        '&:hover': {bgcolor: '#ccc9c95c'}, 
+                    }}>
+                    ←
+                </Button>
+                <Typography level="h1" fontFamily={"'Vollkorn SC', serif"} 
+                sx={{fontSize: 45,
+                    color: '#faf6ee',
+                    textShadow: '0px 4px 20px rgba(0, 0, 0, 0.8)'
+                }}>DishDiary</Typography>
+                <Typography sx={{fontSize: 14, mt: -1,
+                color: '#faf6ee', 
+                textShadow: '0px 4px 20px rgba(0, 0, 0, 0.9)'
+                    }} >What are we cooking today?
+                </Typography>
+            </Box>
             
             {/* --------- MAIN AREA -------- */}
             <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, 
                 alignItems: 'center', 
-                gap: 3, px: 2, minWidth: '100vh',
+                gap: 3, px: 2, minWidth: 0,
                 boxSizing: 'border-box',}}>
                 
-                <Box sx={{display: 'flex', flexDirection: 'row', gap: 2, width: '100%', maxWidth: 1200,
+                <Box sx={{display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, gap: 2, width: '100%', maxWidth: 1200,
                 }}>
                     {/* =========== INGREDIENTS LIST =========== */}
                     <Box sx={{flex: 1, minWidth: 0,}}>
-                        <Typography level="h3" sx={{fontSize: 28,justifySelf: 'center', my: 1,}}>Select ingredients for your dish</Typography>
+                        <Typography level="h3" sx={{fontSize: { xs: 22, md: 28 },justifySelf: 'center', my: 1,}}>Select ingredients for your dish</Typography>
 
                         {/* === Ingredient FIelds ==== */}
                         <Box sx={{mx: 1}}>
@@ -125,7 +160,7 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                             <form onSubmit={handleAddIngredient}>
                                 <FormControl required
                                 sx={{mb: 1,}} >
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel sx={{display: {xs: 'none', sm: 'block'} }}>Name</FormLabel>
                                     <Input type='text' placeholder='Ingredient Name' 
                                     name='name'
                                     value={currentIngredient.name}
@@ -133,7 +168,11 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                                     />
                                 </FormControl>
                                 <Box
-                                sx={{ display: 'flex', flexDirection: 'row', gap: 1, width: '100%'}}>
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: {xs: 'column', md: 'row'},
+                                    gap: {xs: 0, md: 1},
+                                }}>
                                     <FormControl required
                                     sx={{mb: 1, flex: 1}} >
                                         <FormLabel>Quantity</FormLabel>
@@ -183,7 +222,7 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                         <Divider sx={{my: 2}}/>
 
                         {/* Displaying ingredients */}
-                        <Box sx={{maxHeight: 345, overflow: 'auto', }}>
+                        <Box sx={{ maxHeight: { xs: 'none', lg: 345 }, overflow: 'auto' }}>
                             <Typography level="title-md" fontSize={'sm'} sx={{mx: 1}}>Ingredints Review:</Typography>
 
                             {data.ingredients.length === 0 ? (
@@ -195,9 +234,10 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                                     {data.ingredients.map((item, index) => (
                                         <Box key={index} sx={{display: "flex", flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', px: 2, m: 1,
                                         borderRadius: 8, bgcolor: '#97b2ad', }}>
-                                            <Typography sx={{color: '#faf6ee'}}>{item.quantity} {item.unit}-{item.name}</Typography>
+                                            <Typography sx={{ color: '#faf6ee', flex: 1, minWidth: 0, overflowWrap: 'anywhere'}}>
+                                                {item.quantity} {item.unit}-{item.name}</Typography>
                                             <Button onClick={() => handleRemove(index)} 
-                                            sx={{bgcolor: '#97b2ad', '&:hover': {bgcolor: '#5b84a3'}}} 
+                                            sx={{flexShrink: 0, bgcolor: '#97b2ad', '&:hover': {bgcolor: '#5b84a3'}}} 
                                             >X</Button>
                                         </Box>
                                     ))}
@@ -207,18 +247,19 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                         
                     </Box>
 
-                    <Divider orientation="vertical"/>
+                    <Divider orientation="vertical" sx={{ display: { xs: 'none', lg: 'block' } }} />
+                    <Divider sx={{ display: { xs: 'block', lg: 'none' }, my: 1 }} />
                     
                     {/* ============ INSTRUCTION LIST ============= */}
                     <Box sx={{flex: 1, minWidth: 0,}}>
-                        <Typography level="h3" sx={{fontSize: 28,justifySelf: 'center', my: 1,}}>Add the Steps to cook it right</Typography>
+                        <Typography level="h3" sx={{fontSize: { xs: 22, md: 28 },justifySelf: 'center', my: 1,}}>Add the Steps to cook it right</Typography>
                         
                         <Box sx={{mx: 1}}>
                             <Typography sx={{fontWeight: 'bold', fontSize: 14}}>Add Instructions</Typography>
                             <form onSubmit={handleAddInstruction}>
                                 <FormControl required
                                     sx={{mb: 1,}}  >
-                                    <FormLabel>Instruction</FormLabel>
+                                    <FormLabel sx={{display: {xs: 'none', sm: 'block'} }}>Instruction</FormLabel>
                                     <Textarea minRows={4}
                                         placeholder="Add the instruction step by step"
                                         name="instruction"
@@ -236,7 +277,7 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                         <Divider sx={{my: 2}} />
 
                         {/* Displaying instructions */}
-                        <Box sx={{maxHeight: 345, overflow: 'auto' }}>
+                        <Box sx={{ maxHeight: { xs: 'none', lg: 345 }, overflow: 'auto' }}>
                             <Typography level="h4" fontSize={'sm'} sx={{mx: 1}}>Instructions:</Typography>
                             {data.instructions.length === 0 ?(
                                 <Typography level="body-sm">
@@ -247,11 +288,12 @@ function CookingDetails({data, onUpdateIngredients, onUpdateInstructions, onBack
                                     {data.instructions.map((item, index) => (
                                         <Box key={index} sx={{display: "flex", flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', px: 2, m: 1,
                                         borderRadius: 8, bgcolor: '#a9d18e', }}>
-                                            <Typography sx={{color: '#faf6ee'}}>{item.stepNumber}: {item.description}</Typography>
+                                            <Typography sx={{ color: '#faf6ee', flex: 1, minWidth: 0, overflowWrap: 'anywhere'}}>
+                                                {item.stepNumber}: {item.description}</Typography>
                                             {/* <Box> */}
                                                 {/* <Button sx={{bgcolor: '#a9d18e', '&:hover': {bgcolor: '#a9d18e'}}} >Edit</Button> */}
                                             <Button onClick={() => handleRemoveInstruction(index)}
-                                            sx={{bgcolor: '#a9d18e', '&:hover': {bgcolor: '#a9d18e'}}} >X</Button>
+                                            sx={{flexShrink: 0, bgcolor: '#a9d18e', '&:hover': {bgcolor: '#a9d18e'}}} >X</Button>
                                             {/* </Box> */}
                                         </Box>
                                     ))}
